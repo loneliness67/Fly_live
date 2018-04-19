@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>播可直播</title>
+    <link href="css/my/fly.css" rel="stylesheet" type="text/css">
+    <link href="css/my/index.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header class="header">
+    <div style="width:960px;margin:0 auto 58px;position:relative;z-index:99;">
+        <ul class="reg-login" >
+            <a class="search-box"><input type="text" id="tosearch" placeholder="搜索"></a>
+            <a href="/login" class="login" th:remove="@{(${session.currentUser} ? 'all' : 'none')}">登录</a>
+            <a href="/register" class="reg btn"  th:remove="@{(${session.currentUser} ? 'all' : 'none')}">注册</a>
+            <div id="personal-info"  th:remove="@{(${session.currentUser} ? 'none' : 'all')}">
+                <div class="dropdown-toggle"><span class="v-color textofover" data-th-text="${session.currentUser.username}">这里显示用户名</span><span class="caret"></span></div>
+                <ul class="v35-head-all dropdown-menu" style="display: block;">
+                    <li><a th:href="'/'+${session.currentUser.liveId}" class="v-home"><i></i>我的直播</a></li>
+                    <li><a href="/live" class="v-live"><i></i>直播设置</a></li>
+                    <li class="v-border-top"><a href="/edit" class="v-set"><i></i>账户设置</a></li>
+                    <li class="v-border-top"><a href="/logout" class="v-logout"><i></i>退出登录</a></li>
+                </ul>
+            </div>
+        </ul>
+        <div class="logo-box"><a class="logo"><img src="img/index_logo.png" width="81px"></a></div>
+        <div>w
+            <button class="btn btn-light-red to-broadcast" onclick="location.href='http://localhost:8080/live'">快速开始直播</button>
+        </div>
+    </div>
+    <div style="position:absolute;width:100%;top:0;left:0;min-width:1103px;height:620px;z-index:1;overflow:hidden;background:url(//cnstatic01.e.vhall.com/static/img/bgvhall1.jpg) no-repeat;background-size:100%;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='//cnstatic01.e.vhall.com/static/img/bgvhall1.jpg',sizingMethod='scale');">
+        <video style="width:100%;left:0;" autoplay="autoplay" loop="" src="//cnstatic01.e.vhall.com/static/bg.mp4" poster="//cnstatic01.e.vhall.com/static/img/bgvhall1.jpg">
+            <source src="//cnstatic01.e.vhall.com/static/bg.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div style="clear:both"></div>
+</header>
+
+<div class="container">
+    <ul class="recommended-events" style="position:relative;z-index:3;">
+        <h3 class="h3">推荐活动</h3>
+        <li>
+            <a href="http://e.vhall.com/892484132" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/dd/4c/dd4c25c2d8c0aa1b0b6662418155eb4d.jpg?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status record">案例</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">2018亚太商旅峰会</p>
+                        <time>2018-01-09 13:30:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://e.vhall.com/276089780" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/19/fc/19fcab7a41da6fb517954ab15ca05121.jpg?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status preview">预告</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">2018国民睡眠消费大数据沙龙</p>
+                        <time>2018-03-29 14:00:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://e.vhall.com/383119878" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/2b/ca/2bca96a14063fa6329c98c736fa75ce4.jpg?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status record">案例</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">全球领袖峰会</p>
+                        <time>2017-04-27 09:00:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://e.vhall.com/945869223" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/ce/79/ce79103f87ff90ba89ac52854a27c944.png?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status record">案例</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">2017杭州云栖大会 </p>
+                        <time>2017-10-11 09:00:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://e.vhall.com/851017980" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/7a/f2/7af208334ff0447f69dbdfd47b8a7d17.jpeg?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status record">案例</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">第十一届中国基金合伙人峰会</p>
+                        <time>2017-07-12 09:00:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://e.vhall.com/360433388" target="_blank">
+                <img src="//cnstatic01.e.vhall.com/upload/webinars/img_url/ab/3d/ab3dde124ed95ab9a5d2db8ae138f658.jpg?x-oss-process=image/resize,w_280,h_160" width="280" height="158">
+                <div class="event-info">
+                    <span class="status record">案例</span>
+                    <div class="title-time">
+                        <p class="title nowrap" target="_blank">直播-2016中国（四川）电子商务发展峰会</p>
+                        <time>2016-10-13 09:00:00</time>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+
+
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        // if (vhallApp.getCookie("_teaching") == ""){
+        //    	$("#v-teaching").modal('show');
+        //    	vhallApp.addCookie("_teaching","showteaching",525600);
+        // }
+        var arrTop=0;
+        var animationTimer=null;
+        function startAnimation(){
+
+            animationTimer=setInterval(function(){
+                $(".next-screen").css("top",arrTop);
+                arrTop++;
+                if(arrTop==20){
+                    arrTop=0;
+                }
+            },50);
+        }
+        $(".next-screen").hover(function(){
+            clearInterval(animationTimer);
+        },function(){
+            animationTimer=setInterval(function(){
+                $(".next-screen").css("top",arrTop);
+                arrTop++;
+                if(arrTop==20){
+                    arrTop=0;
+                }
+            },50);
+        });
+        startAnimation();
+        vhallApp.floatCard($(".common-events-list"),".share",$("#shareout-div"));
+        $("body").click(function(){
+            $(".dropdown-menu").hide();
+        });
+        $("#personal-info").click(function(e){
+            e.stopPropagation();
+            $(".dropdown-menu").toggle();
+        });
+        if($("#personal-info .dropdown-toggle span").eq(0).width() > 150){
+            $("#personal-info .dropdown-toggle span").eq(0).width(150);
+        }
+        /*$(".search-box").hover(function(){
+            $("#search-con").animate({"margin-left":0});
+        },function(){
+            $("#search-con").animate({"margin-left":40});
+        });*/
+        function gotoTop(min_height){
+            $(".next-screen").click(function(){//定义返回顶部点击向上滚动的动画
+
+                $('html,body').animate({scrollTop:987},300);
+            });
+            $("#gotoTop").click(//定义返回顶部点击向上滚动的动画
+
+                function(){$('html,body').animate({scrollTop:0},300);
+                });
+            //获取页面的最小高度，无传入值则默认为300像素
+            min_height ? min_height = min_height : min_height = 100;
+            //为窗口的scroll事件绑定处理函数
+            $(window).scroll(function(){
+                //获取窗口的滚动条的垂直位置
+
+                var s = $(window).scrollTop();
+                //当窗口的滚动条的垂直位置大于页面的最小高度时，让返回顶部元素渐现，否则渐隐
+
+                if( s > min_height){
+                    $("#gotoTop").fadeIn(100);
+                }else{
+                    $("#gotoTop").fadeOut(200);
+                };
+            });
+        };
+        gotoTop();
+
+        //搜索
+        $("#tosearch").keydown(function(e){
+            var curKey = e.which;
+            if(curKey == 13){
+                if($.trim($(this).val())==''){
+                    $(this).focus();
+                    return false;
+                }else{
+                    window.location.href='http://e.vhall.com/search?wd='+encodeURI($(this).val());
+                }
+                return false;
+            }
+        });
+
+        $(function(){
+            if(!placeholderSupport()){   // 判断浏览器是否支持 placeholder
+                $('[placeholder]').focus(function() {
+                    var input = $(this);
+                    if (input.val() == input.attr('placeholder')) {
+                        input.val('');
+                        input.removeClass('placeholder');
+                    }
+                }).blur(function() {
+                    var input = $(this);
+                    if (input.val() == '' || input.val() == input.attr('placeholder')) {
+                        input.addClass('placeholder');
+                        input.val(input.attr('placeholder'));
+                    }
+                }).blur();
+            };
+        })
+        function placeholderSupport() {
+            return 'placeholder' in document.createElement('input');
+        }
+    });
+</script>
+</body>
+</html>
+
+

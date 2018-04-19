@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>-直播设置</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/invitation-leftmenu.css">
+    <link rel="stylesheet" href="/css/bindphone.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/load.min.js"></script>
+    <script src="js/ajaxfileupload.js"></script>
+</head>
+<body>
+    <header class="common-header">
+        <nav class="navbar nav-top" role="navigation">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="/"><img src="http://192.168.1.103/images/saas_logo.png" width="80" height="36" style="margin-right: 67px;"></a>
+                <!--span>子账号管理</span-->
+            </div>
+            <ul class="v-navigation-options pull-left">
+                <li class="active"><a href="/live">直播管理</a></li>
+                <li><a href="/edit">账户设置</a></li>
+            </ul>
+            <div class="collapse navbar-collapse pull-right v-userinfo">
+                <div class="pull-right login-reg">
+                    <div id="personal-info" class="personal-info">
+                        <div class="dropdown-toggle"><span class="nowrap" style="display:inline-block;max-width:160px;" th:text="${session.currentUser.username}">用户名</span></div>
+                    </div>
+                    <span class="caret"></span>
+                </div>
+                    <a href="#" class="pull-right header-avatar">
+                        <img class="head" th:src="${session.currentUser.image}" alt="fly" width="30" height="30">
+                </a>
+                <ul class="v-head-all v35-head-all" style="display: block;">
+                    <li><a th:href="'/'+${session.currentUser.liveId}" class="v-home"><i></i>我的直播</a></li>
+                    <li class="active"><a href="/live" class="v-live"><i></i>直播设置</a></li>
+
+                    <li class="v-border-top"><a href="/edit" class="v-set"><i></i>账户设置</a></li>
+                    <li class="v-border-top"><a href="/logout" class="v-logout"><i></i>退出登录</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <link rel="stylesheet" href="/css/wangEditor.css">
+    <style type="text/css">
+
+        .wangEditor-drop-panel .panel-tab .tab-container a {
+            display: none;
+        }
+
+        .wangEditor-drop-panel .panel-tab .tab-container a.selected {
+            display: none;
+        }
+        .v-chatlist .main-content,.v-watchlist .area-layer{
+            min-height: 770px;
+        }
+        .wangEditor-menu-container{
+            border-bottom: 1px solid #d2d2d2;
+        }
+        #event-introduce{
+            padding-top: 10px;
+            font-size: 12px;
+            color: #666;
+            line-height: 17px;
+        }
+        .datetimepicker table tr td.active,.datetimepicker table tr td.active:hover,.datetimepicker table tr td.active.disabled,.datetimepicker table tr td.active.disabled:hover{
+            text-shadow:none !important;
+        }
+
+        .datetimepicker table tr td span.active,.datetimepicker table tr td span.active:hover,.datetimepicker table tr td span.active.disabled,.datetimepicker table tr td span.active.disabled:hover{
+            text-shadow:none !important;
+        }
+        [class*=" datetimepicker-dropdown"]:after,[class*=" datetimepicker-dropdown"]:before{
+            display: none !important;
+        }
+    </style>
+
+    <section class="webinar-title v39-with-warning-tips">
+        <h4><a th:href="'/'+${session.currentUser.liveId}" style="color:#383838" target="_blank" data-th-text="${myLive.name}">测试
+        </a></h4>
+        <p class="time" th:text="${#dates.format(myLive.updateTime,'yyyy-MM-dd')}">2018-03-27 14:35</p>
+    </section>
+
+    <section class="main edit-update ">
+
+        <div class="right-container" style="
+    margin-left: 0px;
+">
+
+            <div class="main-content fix">
+                <form id="form" class="setup-form form-horizontal audienceBox adjust-edit-form-box" style="padding:20px 30px;" action="/live" method="post">
+                    <div class="adjust-edit-wrapBox" style="min-height: 735px;">
+                        <input type="hidden" name="_token" value="tPSM2nuRdL5Sj4TcmrTcgUhBCBLot11q3QjmrZbW">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <div class="form-group">
+                                    <div class="col-sm-1 label-left adjust-text-align">
+                                        <span class="star edit-star-title v-red">*</span><label for="event-title" class="control-label">直播标题</label>
+                                    </div>
+                                    <div class="col-sm-6 v-title" style="width:600px;">
+                                        <input type="text" id="event-title" class="form-control bd2 input_hovered" placeholder="请输入直播标题" name="name" value="" maxlength="30">
+                                        <p class="form-control-static v-999 f-12 custom-tips" style="position:absolute;top: 3px;right:0px;width:55px;display:block;"><span style="color:#5EA6ED;">6</span>/30</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--图片上传-->
+                            <div class="form-group webinar-img adjust-webinar-img-box" style="margin-left: 70px">
+                                <div class="form-group">
+                                    <label for="posterUpload">
+
+
+                                            <p class="bg-size f-12">尺寸1280×720px 图片小于2MB（支持jpg、gif、png、bmp）</p>
+
+                                    </label>
+                                </div>
+                                <div class="form-group upload-box adjust-edit-upload-btn" style="">
+
+                                    <input id="upload_file" type="file" name="upload_file" value="上传" accept="image/png,image/gif,image/bmp,image/jpg,image/jpeg" onchange ="uploadFile(this)">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+
+
+
+
+                            <!--图片上传-->
+
+                            <div class="form-group row adjust-setup-delay-box" style="margin-bottom: 20px;">
+
+                                <div class="col-sm-1 label-left adjust-text-align" style="line-height: 26px;">
+                                    <span class="star edit-star-intro v-red">*</span><label class="control-label" style="padding-top:1px;">直播简介</label>
+                                </div>
+
+                                <div class="col-sm-6 form-buffer" style="width: 53%">
+                                    <div id="editor">
+                                        <p></p>
+                                    </div>
+                                    <input type="hidden" name="detail" id="text">
+                                </div>
+                            </div>
+                        <div class="form-group row adjust-setup-delay-box" style="margin-bottom: 20px;">
+
+                            <div class="col-sm-1 label-left adjust-text-align" style="line-height: 26px;">
+                                <span class="star edit-star-intro v-red">*</span><label class="control-label" style="padding-top:1px;">直播类别</label>
+                            </div>
+                            <div class="col-sm-6 form-buffer">
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew1" value="1"><label for="buffer-radionew1">金融</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew2" value="2"><label for="buffer-radionew2">互联网</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew3" value="3"><label for="buffer-radionew3">汽车</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew4" value="4"><label for="buffer-radionew4">教育</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew5" value="5"><label for="buffer-radionew5">健康</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="categoryId" id="buffer-radionew6" value="0" checked=""><label for="buffer-radionew6">其它</label>
+                                </p>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <div class="col-sm-1 label-left adjust-text-align">
+                                <label for="event-title" class="control-label">欢迎短语</label>
+                            </div>
+                            <div class="col-sm-6 v-welcome" style="width:600px;">
+                                <input type="text" id="welcome" class="form-control bd2 input_hovered" placeholder="请输入欢迎语（该文字将出现在评论区）" name="welcome" value="" maxlength="15">
+                                <p class="form-control-static v-999 f-12 custom-tips" style="position:absolute;top: 3px;right:0px;width:55px;display:block;"><span style="color:#5EA6ED;">0</span>/15</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-1 label-left adjust-text-align">
+                                <label for="event-title" class="control-label">推流地址</label>
+                            </div>
+                            <div class="col-sm-6 v-welcome" style="width:600px;">
+                                <p class="form-control-static v-999 f-12 custom-tips" style="position:absolute;top: 3px;display:block;">RTMP URL：rtmp://192.168.1.103/live&nbsp;&nbsp;&nbsp;</p>
+                                <p class="form-control-static v-999 f-12 custom-tips" style="position:absolute;top: 3px;right:0px;display:block;"><span style="color:#5EA6ED; margin-left: 20px">播放路径/串流码：<span th:text="${myLive.code}">456345756</span></span></p>
+                            </div>
+                        </div>
+
+
+                        <div class="from-group text-center update-edit-btnGroup" style="width:1066px; margin-bottom:20px;">
+                            <button  id="button1" class="btn btn-light-red savebtn"> 保&nbsp;&nbsp;&nbsp;存 </button>
+
+                            <a th:href="${myLive.id}" class="btn btn-back cancelBtn">取&nbsp;&nbsp;&nbsp;消</a>
+                            <a href="/random" class="btn btn-back cancelBtn">更换推流码</a>
+
+                        </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="js/wangEditor.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
+
+        $("#button1").click(function () {
+            var html = editor.txt.html();
+            var text = editor.txt.text();
+            $("#text").val(html);
+            $("#form").submit();
+        })
+    </script>
+
+    <script type="text/javascript">
+        function uploadFile(obj) {
+
+            $.ajaxFileUpload({
+                url : "/liveupload",
+                secureuri : false,// 一般设置为false
+                fileElementId : "upload_file",// 文件上传表单的id <input type="file" id="fileUpload" name="file" />
+                dataType : 'json',// 返回值类型 一般设置为json
+                data: {'type': type},
+
+                success : function(data) // 服务器成功响应处理函数
+                {
+                },
+                error : function(data)// 服务器响应失败处理函数
+                {
+                    console.log("服务器异常");
+                }
+            });
+            return false;
+        }
+    </script>
+
+</body>
+</html>

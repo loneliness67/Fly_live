@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>头像修改</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/personal_settings.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+<header class="commen-header">
+    <nav class="navbar nav-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="http://192.168.1.103/images/saas_logo.png" width="80" height="36"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="v-userinfo">
+                <div class="pull-right login-reg">
+                    <div id="personal-info">
+                        <div><span class="nowrap" style="display:inline-block;max-width:160px;" title="fly">fly</span></div>
+                    </div>
+                    <span class="caret"></span>
+                </div>
+                <a href="javascript:;" class="pull-right header-avatar">
+                    <img class="head" th:src="${session.currentUser.image}" alt="fly"  width="30" height="30">
+                </a>
+                <ul class="v35-head-all" style="display: block;">
+                    <li><a th:href="'/'+${session.currentUser.liveId}" class="v-home"><i></i>我的直播</a></li>
+                    <li><a href="/live" class="v-live"><i></i>直播设置</a></li>
+
+
+                    <li class="v-border-top "><a href="/edit" class="v-set"><i></i>账户设置</a></li>
+                    <li class="v-border-top"><a href="/logout" class="v-logout"><i></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="main-content">
+    <section class="main">
+        <div class="main-content">
+            <div class="events-box right-box v-modify-avtar">
+                <div class="page-header">
+                    <h3 class="clearfix">修改头像 <a class="pull-right" style="font-size: 15px;" href="/edit">&lt; 返回</a></h3>
+                </div>
+
+                <div id="altContent">
+                    <div style="width:162px;margin: 0px auto">
+                        <form action="/upload"  method="post" enctype="multipart/form-data">
+                            <div class="text-center">↓↓点击上传头像↓↓</div>
+                            <div id="preview">
+                                <img id="imghead" border="0" src="img/photo_icon.png" width="162" height="162" onClick="$('#previewImg').click();">
+                            </div>
+                            <input type="file" name="upload_file" onChange="previewImage(this)" style="display: none;" id="previewImg">
+                            <input type="submit" class="btn btn-default btn-lg btn-block" style="width: 162px">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

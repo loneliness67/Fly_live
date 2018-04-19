@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${session.currentUser.username}+'的个人资料'">Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/personal_settings.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+<header class="commen-header">
+    <nav class="navbar nav-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="http://192.168.1.103/images/saas_logo.png" width="80" height="36"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="v-userinfo">
+                <div class="pull-right login-reg">
+                    <div id="personal-info">
+                        <div><span class="nowrap" style="display:inline-block;max-width:160px;" data-th-text="${session.currentUser.username}">fly</span></div>
+                    </div>
+                    <span class="caret"></span>
+                </div>
+                <a href="javascript:;" class="pull-right header-avatar">
+                    <img class="head" th:src="${session.currentUser.image}" alt="fly" width="30" height="30">
+                </a>
+                <ul class="v35-head-all" style="display: block;">
+                    <li><a th:href="'/'+${session.currentUser.liveId}" class="v-home"><i></i>我的直播</a></li>
+                    <li><a href="/live" class="v-live"><i></i>直播设置</a></li>
+
+                    <li class="v-border-top active "><a href="/edit" class="v-set"><i></i>账户设置</a></li>
+                    <li class="v-border-top"><a href="/logout" class="v-logout"><i></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="main-content">
+
+    <section class="main">
+        <div class="main-content" data-init="accountSettings">
+            <link rel="stylesheet" href="js/account_settings.css">
+
+            <div class="v-table v-first">
+                <p class="v-title">账户设置</p>
+
+                <div class="v-content clearfix">
+                    <div class="fl v-avatar">
+                        <img th:src="${session.currentUser.image}" alt="头像" width="116">
+                        <a href="/modifyavatar" class="change-header text-center f-12">修改头像</a>
+                    </div>
+                    <div class="fl v-info ">
+                        <dl class="dl-horizontal">
+
+                            <dt class="vip-status">用户状态</dt>
+                            <dd>
+                                正常</dd>
+                            <dt>昵称</dt>
+                            <dd class="clearfix"><span class="nick_name current-txt toe" data-th-text="${session.currentUser.username}">fly</span>
+
+                            </dd>
+                            <form action="/edit" method="post">
+                            <dt>性别</dt>
+                            <dd>
+                                <select class="form-control sex-sel" name="sex">
+                                    <option value="0" th:selected="${session.currentUser.sex==0}">女</option>
+                                    <option value="1" th:selected="${session.currentUser.sex==1}">男</option>
+                                </select>
+
+                            </dd>
+
+                            <dt>邮箱</dt>
+
+                                <dd>
+
+                                    <input type="text" name="email" th:value="${session.currentUser.email}">
+
+                                </dd>
+                                <dt>手机号</dt>
+
+                                <dd>
+
+                                    <input type="text" name="phoneNum" th:value="${session.currentUser.phone}">
+
+                                </dd>
+                            <dt>密码</dt>
+                            <dd>
+
+                                    <input type="password" name="password">
+
+
+                            </dd>
+                                <dd>
+                                    <input type="submit" value="保存" class="btn" style="background-color: #eeeeee;margin-top: 5px;">
+                                </dd>
+                            </form>
+                            <dt>注册日期</dt>
+                            <dd data-th-text="${#dates.format(session.currentUser.createTime,'yyyy-MM-dd')}">
+                                2018-03-28
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var success =  [[${success}]];
+        if (success == 1) {
+            alert("修改资料成功");
+        }
+        }
+       
+
+    );
+</script>
+</body>
+</html>

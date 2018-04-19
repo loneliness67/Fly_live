@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${session.currentLive.name}">直播间</title>
+    <link href="css/join.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header class="common-header">
+    <nav class="navbar inner-center clearfix">
+        <div class="navbar-header fl">
+            <a href="/">
+                <img src="//192.168.1.103/images/saas_logo.png"  width="80" height="36">
+            </a>
+        </div>
+        <div class="fr login-reg"  th:remove="@{(${session.currentUser} ? 'all' : 'none')}">
+            <a class="to-login" href="/login">登录</a>
+            <a class="to-reg" href="/register">注册</a>
+        </div>
+        <div class="fr login-reg" th:remove="@{(${session.currentUser} ? 'none' : 'all')}">
+            <div class="fr personal-info on">
+                <span class="header-avatar">
+                    <img class="head" th:src="${session.currentUser.image}"  alt="fly" width="38" height="38">
+                 </span>
+                <span class="nowrap" data-th-text="${session.currentUser.username}">fly</span>
+                <span class="caret"></span>
+            </div>
+            <ul class="v35-head-all dropdown-menu" style="display: block;">
+                <li><a th:href="'/'+${session.currentUser.liveId}" class="v-home"><i></i>我的直播</a></li>
+                <li><a href="/live" class="v-live"><i></i>直播设置</a></li>
+                <li class="v-border-top"><a href="/edit" class="v-set"><i></i>账户设置</a></li>
+                <li class="v-border-top"><a href="/logout" class="v-logout"><i></i>退出登录</a></li>
+            </ul>
+        </div>
+        <div class="fr header-search">
+            <form action="/search" method="get">
+                <input type="text" name="wd" placeholder="搜     索">
+            </form>
+        </div>
+    </nav>
+</header>
+    <section class="watch-container">
+        <div class="watch-header inner-center">
+            <div class="watch-header-logo"></div><!--皮肤logo-->
+            <h3 data-th-text="${session.currentLive.name}">测试<span class="tag-webinar-type over">结束</span>
+                <div class="fr watch-pv">0&nbsp;次观看</div>
+            </h3>
+            <div class="clearfix block-userinfo">
+                <div class="fl"><span><a class="v-blue" target="_blank" th:href="'/'+${session.currentLive.id}">fly</a></span>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div class="fl">上次直播时间：<span data-th-text="${#dates.format(session.currentLive.updateTime,'yyyy-MM-dd')}">2018-03-27 14:35</span></div>
+                <div class="fr follow-someone-btns" style="display: none">
+                    <a href="javascript:;" class="fl follow-someone" data-uid="">关注</a><a href="javascript:;" class="fl follow-nums">0</a>
+                </div>
+                <div class="fr qrcode">
+
+                </div>
+                <div class="fr head-r-toolbar share-toolbar">
+                    <div class="live-share-popbox">
+                        <span class="live-share-popbox-angluar"></span>
+                        <em></em>
+                        <div>
+                            <div class="live-share-popbox-scan">
+                            </div>
+                            <div class="live-share-popbox-share-to">
+
+
+                            </div>
+                        </div>
+                        <div class="live-share-popbox-share-link">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        <div class="watch-body inner-center">
+        <div class="td watch-banner">
+            <!--#######################播放器###############################-->
+            <video
+                    id="my-player"
+                    class="video-js"
+                    width="926"
+                    height="521"
+                    controls
+                    preload="auto"
+                    poster="http://192.168.1.103/static/wait.png"
+                    data-setup='{}'>
+                <source th:src="'rtmp://192.168.1.103/live/'+${session.currentLive.code}" type='rtmp/flv'/>
+                </p>
+            </video>
+            <script type="text/javascript">
+                var player = videojs('my-player');
+                var options = {};
+
+                var player = videojs('my-player', options, function onPlayerReady() {
+                    videojs.log('Your player is ready!');
+                    // In this context, `this` is the player that was created by Video.js.
+                    this.play();
+                    // How about an event listener?
+                    this.on('ended', function() {
+                        videojs.log('Awww...over so soon?!');
+                    });
+                });
+
+            </script>
+
+            <!--###################播放器####################-->
+
+        </div>
+        <div class="td watch-timeago">
+        </div>
+    </div>
+    </section>
+
+    <section class="area-bottom-section">
+        <div class="area-bottom inner-center clearfix">
+            <div class="product-area"></div>
+            <div class="desc-area advs-area area-section">
+                <div class="desc-tab">直播详情
+                </div>
+                <div class="desc desc-tab-0" id="introduction">
+                    <p th:utext="${session.currentLive.detail}">测试</p>
+                </div>
+                <style>
+                    .v-pagination-box *{
+                        box-sizing: border-box;
+                    }
+                    .v-pagination-box{margin:15px 27px;text-align:right}.v-pagination-box li{display:inline-block;height:22px;background:#f1f1f1;border:1px solid #d2d2d2;border-radius:4px;margin-left:5px;cursor:pointer}.v-pagination-box li a{color:#666;padding:0 6.5px}.v-pagination-box li a.disabled{cursor:not-allowed}.v-pagination-box li a.v_js_next{display:inline-block;width:24px;height:24px;color:transparent !important;background:url(//cnstatic01.e.vhall.com/static/images/vhall3.0/pre_next.png?v=Zm22M6twqnpG4JxxvZ6OGA%3D%3D) no-repeat -36px -39px}.v-pagination-box li a.v_js_pre{display:inline-block;width:24px;height:24px;color:transparent !important;background:url(//cnstatic01.e.vhall.com/static/images/vhall3.0/pre_next.png?v=Zm22M6twqnpG4JxxvZ6OGA%3D%3D) no-repeat -2px -39px}.v-pagination-box li.active{background-color:#7db7f0;border-color:#7db7f0}.v-pagination-box li.active a{color:#fff}.v-pagination-box li.active a.v_js_next{background-position:-36px -5px}.v-pagination-box li.active a.v_js_pre{background-position:-2px -5px}.v-pagination-box li.active:hover{border-color:#7db7f0}.v-pagination-box li.active:hover a{color:#fff}.v-pagination-box li.active:hover a.v_js_next{background-position:-36px -5px}.v-pagination-box li.active:hover a.v_js_pre{background-position:-2px -5px}.v-pagination-box li:hover{border-color:#999}.v-pagination-box li:hover a{color:#666}.v-pagination-box li:hover a.v_js_next{background-position:-36px -5px}.v-pagination-box li:hover a.v_js_pre{background-position:-2px -5px}.v-pagination-box li.disabled{cursor:default;border-color:#d2d2d2}.v-pagination-box li.disabled a{cursor:default;color:#999;opacity:0.3}.v-pagination-box li.disabled a.v_js_next{background-position:-36px -39px}.v-pagination-box li.disabled a.v_js_pre{background-position:-2px -39px}
+                </style>
+                <div class="desc-tab-1" style="padding-top: 20px;">
+                    <div class="subject-box"></div>
+                    <div class="all-events text-center v-pagination-box" id="subject-pagination">
+                        <ul id="ul-pagination">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
